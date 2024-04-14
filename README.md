@@ -2,5 +2,8 @@
 
 Repository for EAS 508 Statistical Data Mining Group Project.
 
-Use the Virtual Enviornment with
-`source sdmProjectVenv/bin/activate`
+Use virtual enviornments
+
+`$ python3 -m venv projectVenv`
+`$ source projectVenv/bin/activate`
+`$ pip install requirements.txt`
