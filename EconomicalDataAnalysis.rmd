@@ -1,0 +1,38 @@
+```{r}
+#Load libraries
+ library(tidyverse)
+ suppressPackageStartupMessages(library(ggplot2))
+ suppressPackageStartupMessages(library(viridis))
+
+#Load data
+data<-read.csv("FinalDataSet.csv")
+attach(data)
+head(data)
+```
+
+```{r}
+#Load map library
+  suppressPackageStartupMessages(library(usmap))
+
+#Look at statepop data
+ head(statepop, n=5)
+
+#Summarize data for map
+ data %>% select(State, High.2018) %>% group_by(State) %>%
+  summarize(HIGH2018=mean(High.2018)) -> DATA
+
+#Convert sumarized data to data frame 
+ DATA<-data.frame(DATA)
+
+#Change column name so datasets can match to each other
+ colnames(statepop)[colnames(statepop)=="full"] <- "State"
+
+#Merge data
+ ALL<-left_join(DATA, statepop)
+
+#Plot map
+ plot_usmap(data=ALL, values="HIGH2018") + 
+  scale_fill_viridis(discrete=FALSE) + 
+  theme(legend.position = "right") + labs(fill="High.Vallue") +
+  ggtitle("2018 High Value Average")
+```
